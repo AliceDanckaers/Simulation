@@ -10,13 +10,13 @@ public class EvtReleaseGate extends Events{
 	public int gateID;
 
 	public EvtReleaseGate() {
-		this.name =  "liberation d'une porte";
+		this.name =  "Gate released";
 		this.start =  new LogicalDateTime("01/01/2015 00:00:00.0000");
 	
 	}
 
 	public EvtReleaseGate(LogicalDateTime startDate, int gateID) {
-		this.name = "liberation d'une porte";
+		this.name = "Gate released";
 		this.start = startDate;
 		this.gateID = gateID;
 	}
@@ -24,7 +24,6 @@ public class EvtReleaseGate extends Events{
 	@Override
 	public String doSomething(SortedList<Events> agenda, Aeroport aero) {
 		String log = "liberation de la porte "+(gateID +1);
-		System.out.println(log);
 		if(aero.waitingListGate.size()==0)
 		{
 			aero.facilities.gates[gateID].status = "libre";

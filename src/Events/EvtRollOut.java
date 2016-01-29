@@ -11,13 +11,13 @@ import enstabretagne.simulation.core.SortedList;
 public class EvtRollOut extends Events{
 
 	public EvtRollOut() {
-		this.name =  "roulement de l avion en sortie";
+		this.name =  "Plane rolling out";
 		this.start =  new LogicalDateTime("01/01/2015 00:00:00.0000");
 	
 	}
 
 	public EvtRollOut(LogicalDateTime startDate, Entities plane) {
-		this.name = "phase d approche de l avion";
+		this.name = "Plane rolling out";
 		this.start = startDate;
 		this.plane = plane;
 	}
@@ -25,7 +25,6 @@ public class EvtRollOut extends Events{
 	@Override
 	public String doSomething(SortedList<Events> agenda, Aeroport aero) {
 		String log = "roulement sur taxiway 2 de l'avion "+plane.ID;
-		System.out.println(log);
 		if(aero.facilities.runway.status == "libre")
 		{
 			aero.facilities.runway.setStatus("occupe");

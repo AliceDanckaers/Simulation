@@ -120,7 +120,7 @@ public class Aeroport {
 		Aeroport BES = new Aeroport(4); // Aeroport de Brest
 		boolean endSimulation = false; // fin de simulation
 		String logmsg; // nouvel entree de log
-		System.out.println("Debut de Simulation");
+
 		while (!endSimulation) {
 			logmsg = BES.simulate();
 			BES.log = BES.log + logmsg;

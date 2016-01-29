@@ -22,8 +22,8 @@ public class EvtMeteoChange  extends Events{
 	@Override
 	public String doSomething(SortedList<Events> agenda, Aeroport aero) {
 		aero.meteo = this.meteo;
-		System.out.println("la meteo devient "+aero.meteo);
-		return null;
+		String log = "la meteo devient "+aero.meteo;
+		return log;
 	}	
 
 

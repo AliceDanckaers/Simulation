@@ -11,13 +11,13 @@ import enstabretagne.simulation.core.SortedList;
 public class EvtApproach extends Events {
 
 	public EvtApproach() {
-		this.name =  "phase d approche de l avion";
+		this.name =  "Plane approaching phase";
 		this.start =  new LogicalDateTime("01/01/2015 00:00:00.0000");
 		
 	}
 	
 	public EvtApproach(LogicalDateTime startDate, Entities plane) {
-		this.name = "phase d approche de l avion";
+		this.name = "Plane approaching phase";
 		this.start = startDate;
 		this.plane = plane;
 	}
@@ -25,14 +25,12 @@ public class EvtApproach extends Events {
 	@Override
 	public String doSomething(SortedList<Events> agenda,Aeroport aero) {
 		String log = "approche de l'avion "+plane.ID;
-		// TODO verifier duree approche
 		int tmpAppr=approachDuration();
 		if (aero.meteo == "mauvaise")
 		{
 			tmpAppr=2*tmpAppr;
 		}
 		agenda.add(new EvtLanding(start.add(LogicalDuration.ofMinutes(tmpAppr)),plane));
-		System.out.println(log);
 		return log;
 	}
 

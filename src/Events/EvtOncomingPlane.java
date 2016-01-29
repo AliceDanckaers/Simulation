@@ -10,12 +10,12 @@ public class EvtOncomingPlane extends Events  {
 
 	public SortedList<Integer> waitingListLanding;
 	public EvtOncomingPlane(){
-		this.name =  "arrivee de l avion";
+		this.name =  "plane contacting control tower";
 		this.start =  new LogicalDateTime("01/01/2015 00:00:00.0000");
 	}
 	
 	public EvtOncomingPlane(LogicalDateTime startDate, Entities plane) {
-		this.name = "arrivee de l avion";
+		this.name =  "plane contacting control tower";
 		this.start = startDate;
 		this.plane = plane;
 		this.plane.arrived = startDate;
@@ -24,7 +24,6 @@ public class EvtOncomingPlane extends Events  {
 	@Override
 	public String doSomething(SortedList<Events> agenda, Aeroport aero) {
 		String log = "L'avion "+plane.ID+" contacte la tour";
-		System.out.println(log);
 		aero.planes.planes.add(plane);
 		if(aero.facilities.runway.status == "libre" && aero.facilities.taxiway1.status == "libre")
 		{
