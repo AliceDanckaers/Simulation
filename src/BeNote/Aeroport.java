@@ -11,7 +11,7 @@ import enstabretagne.simulation.core.SortedList;
 
 public class Aeroport {
 
-	// parametres de simulation
+	// simulation parameters
 	public SortedList<Events> agenda = new SortedList<Events>();
 	public Events currEvt;
 	public LogicalDateTime currDate;
@@ -23,7 +23,7 @@ public class Aeroport {
 	public static LogicalDuration dur;
 	public static PrintWriter writer;
 
-	// parametres de l'aeroport
+	// Airport parameters
 	public Facilities facilities = new Facilities();
 	public Entities planes;
 	public SortedList<Entities> waitingListLanding = new SortedList<Entities>();
@@ -34,7 +34,7 @@ public class Aeroport {
 	public Aeroport(
 			int i/* TODO aller chercher valeurs dans fichier parametre */) throws FileNotFoundException {
 
-		// parametrage de la simulation
+		// loading simulation parameters
 		startDate = new LogicalDateTime("01/01/2015 00:00:00");
 		stopDate = startDate.add(LogicalDuration.ofDay(2));
 		currDate = startDate;
@@ -42,7 +42,7 @@ public class Aeroport {
 		meteo = "bonne";
 		writer = new PrintWriter("logger.txt");
 
-		// parametrage de l'aeroport (vide)
+		// loading airport parameters
 		facilities.runway = new Entities("piste", "piste", "libre");
 		facilities.taxiway1 = new Entities("taxiway 1", "taxiway", "libre");
 		facilities.taxiway2 = new Entities("taxiway 2", "taxiway", "libre");
@@ -51,42 +51,22 @@ public class Aeroport {
 			facilities.gates[k] = new Entities("dock " + k, "dock", "libre");
 		}
 		planes = new Entities("avions", "avions");
-
-		// remplissage d'une partie de l'agenda
-		// agenda.add(avion)
-		// agenda.add(meteo)
 		
-		
-		evtinit = new EventsInitializer(agenda, startDate, stopDate);
-		
-/*		agenda.add(new EvtOncomingPlane(startDate.add(LogicalDuration.ofMinutes(1)), new Entities(12, "avion")));
-		agenda.add(new EvtOncomingPlane(startDate.add(LogicalDuration.ofMinutes(20)), new Entities(3, "avion")));
-		agenda.add(new EvtOncomingPlane(startDate.add(LogicalDuration.ofMinutes(2)), new Entities(57, "avion")));
-		agenda.add(new EvtOncomingPlane(startDate.add(LogicalDuration.ofMinutes(15)), new Entities(4, "avion")));
-		agenda.add(new EvtOncomingPlane(startDate.add(LogicalDuration.ofMinutes(32)), new Entities(8, "avion")));
-		agenda.add(new EvtOncomingPlane(startDate.add(LogicalDuration.ofMinutes(153)), new Entities(99, "avion")));
-		agenda.add(new EvtOncomingPlane(startDate.add(LogicalDuration.ofMinutes(254)), new Entities(7, "avion")));
-		agenda.add(new EvtOncomingPlane(startDate.add(LogicalDuration.ofMinutes(246)), new Entities(34, "avion")));
-		agenda.add(new EvtMeteoChange(startDate.add(LogicalDuration.ofMinutes(10)), "mauvaise"));
-		agenda.add(new EvtMeteoChange(startDate.add(LogicalDuration.ofMinutes(30)), "bonne"));
-		agenda.add(new EvtMeteoChange(startDate.add(LogicalDuration.ofMinutes(100)), "mauvaise"));
-		agenda.add(new EvtMeteoChange(startDate.add(LogicalDuration.ofMinutes(180)), "bonne")); */
-		
-		
-		
+		// loading schedueler
+		evtinit = new EventsInitializer(agenda, startDate, stopDate);		
 		
 	}
 
 	public String simulate() {
 
-		// recupperation prochain evenement
+		// get next event
 		currEvt = agenda.first();
 		agenda.remove(currEvt);
 
-		// avancement de l'horloge
+		// move clock forward
 		currDate = currEvt.start;
 
-		// num de l'avion
+		// Plane number
 		String numPlane;
 
 		try {
@@ -95,7 +75,7 @@ public class Aeroport {
 			numPlane = "00";
 		}
 
-		// traitement de l'evenement
+		// handling event
 		String date = currDate.toString();
 		String logmsg = date + ";" + numPlane + ";" + currEvt.doSomething(agenda, this);
 
@@ -103,7 +83,7 @@ public class Aeroport {
 	}
 
 	public void printStatus(int i) {
-
+		// for debugging
 		System.out.println("---------------------------> status piste : " + this.facilities.runway.status);
 		System.out.println("---------------------------> status tw 1 : " + this.facilities.taxiway1.status);
 		for (int k = 0; k < i; k++) {
@@ -116,11 +96,12 @@ public class Aeroport {
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {
-		// definition des variables
-		Aeroport BES = new Aeroport(4); // Aeroport de Brest
-		boolean endSimulation = false; // fin de simulation
-		String logmsg; // nouvel entree de log
+		// variables definition
+			Aeroport BES = new Aeroport(4); // Brest Airport
+			boolean endSimulation = false; // End of Simulation
+			String logmsg; // Log message
 
+		// Start of Simulation
 		while (!endSimulation) {
 			logmsg = BES.simulate();
 			BES.log = BES.log + logmsg;
