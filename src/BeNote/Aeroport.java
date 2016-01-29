@@ -1,6 +1,7 @@
 package BeNote;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 import Events.Events;
@@ -23,37 +24,36 @@ public class Aeroport {
 	public static LogicalDuration dur;
 	public static PrintWriter writer;
 
+
 	// Airport parameters
 	public Facilities facilities = new Facilities();
 	public Entities planes;
+	public int nb_gate;
 	public SortedList<Entities> waitingListLanding = new SortedList<Entities>();
 	public SortedList<Entities> waitingListGate = new SortedList<Entities>();
 	public SortedList<Entities> waitingListTW2 = new SortedList<Entities>();
 	public SortedList<Entities> waitingListTakeOff = new SortedList<Entities>();
 	public EventsInitializer evtinit;
-	public Aeroport(
-			int i/* TODO aller chercher valeurs dans fichier parametre */) throws FileNotFoundException {
+	public Aeroport() throws IOException {
 
-		// loading simulation parameters
-		startDate = new LogicalDateTime("01/01/2015 00:00:00");
-		stopDate = startDate.add(LogicalDuration.ofDay(2));
-		currDate = startDate;
-		log = "This is a log file";
-		meteo = "bonne";
-		writer = new PrintWriter("logger.txt");
-
-		// loading airport parameters
-		facilities.runway = new Entities("piste", "piste", "libre");
-		facilities.taxiway1 = new Entities("taxiway 1", "taxiway", "libre");
-		facilities.taxiway2 = new Entities("taxiway 2", "taxiway", "libre");
-		facilities.gates = new Entities[i];
-		for (int k = 0; k < i; k++) {
-			facilities.gates[k] = new Entities("dock " + k, "dock", "libre");
-		}
-		planes = new Entities("avions", "avions");
+	// loading simulation parameters
+	SimulationGetPropertyValues properties = new SimulationGetPropertyValues();
+	properties.getPropValues(this);
+	currDate = startDate;
+	writer = new PrintWriter("logger.txt");
 		
-		// loading schedueler
-		evtinit = new EventsInitializer(agenda, startDate, stopDate);		
+	// loading airport parameters
+	facilities.runway = new Entities("piste", "piste", "libre");
+	facilities.taxiway1 = new Entities("taxiway 1", "taxiway", "libre");
+	facilities.taxiway2 = new Entities("taxiway 2", "taxiway", "libre");
+	facilities.gates = new Entities[nb_gate];
+	for (int k = 0; k < nb_gate; k++) {
+		facilities.gates[k] = new Entities("dock " + k, "dock", "libre");
+	}
+	planes = new Entities("avions", "avions");
+	
+	// loading scheduler
+	evtinit = new EventsInitializer(agenda, startDate, stopDate);		
 		
 	}
 
@@ -95,9 +95,9 @@ public class Aeroport {
 
 	}
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws IOException {
 		// variables definition
-			Aeroport BES = new Aeroport(4); // Brest Airport
+			Aeroport BES = new Aeroport(); // Brest Airport
 			boolean endSimulation = false; // End of Simulation
 			String logmsg; // Log message
 

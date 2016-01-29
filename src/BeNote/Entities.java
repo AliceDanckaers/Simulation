@@ -14,7 +14,7 @@ public class Entities implements Comparable<Entities>{
 	public int ID;
 	public LogicalDateTime arrived;
 	
-	public Entities(String name, String type, String status) { // constructor for aeroport facilities
+	public Entities(String name, String type, String status) { // constructor for airport facilities
 		this.name = name;
 		this.type = type;
 		this.status = status;
