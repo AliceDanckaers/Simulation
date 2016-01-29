@@ -13,6 +13,7 @@ This is the simulation project related to UV 5.8 at ENSTA Bretagne.
 * Copy the repositories TD1/ and src/ into your project
 * You can launch the simulation by running /src/BeNote/Aeroport.java
 * You can modify the parameters of the simulation in the file /src/config.properties
+* The results of the simulation are in the logger.csv file (open with excel or similar)
 
 ### Contributors ###
 
