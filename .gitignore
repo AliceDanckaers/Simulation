@@ -1,0 +1,6 @@
+bin
+logger.txt
+.settings
+.project
+.classpath
+*~
