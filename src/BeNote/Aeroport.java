@@ -40,7 +40,7 @@ public class Aeroport {
 	SimulationGetPropertyValues properties = new SimulationGetPropertyValues();
 	properties.getPropValues(this);
 	currDate = startDate;
-	writer = new PrintWriter("logger.txt");
+	writer = new PrintWriter("logger.csv");
 		
 	// loading airport parameters
 	facilities.runway = new Entities("piste", "piste", "libre");
@@ -74,10 +74,8 @@ public class Aeroport {
 		} catch (Exception e) {
 			numPlane = "00";
 		}
-
 		// handling event
-		String date = currDate.toString();
-		String logmsg = date + ";" + numPlane + ";" + currEvt.doSomething(agenda, this);
+		String logmsg = currDate + ";" + currDate.getDayOfWeek()+";"+ numPlane + ";" + currEvt.ID +";"+ currEvt.doSomething(agenda, this) +";"+currEvt.end+";"+currEvt.end.soustract(currDate).getMinutes()+" ; "+currEvt.end.soustract(currDate).getRestSeconds()+ "\n";
 
 		return logmsg;
 	}
@@ -100,7 +98,7 @@ public class Aeroport {
 			Aeroport BES = new Aeroport(); // Brest Airport
 			boolean endSimulation = false; // End of Simulation
 			String logmsg; // Log message
-
+			System.out.println("begining of simulation");
 		// Start of Simulation
 		while (!endSimulation) {
 			logmsg = BES.simulate();
@@ -108,10 +106,12 @@ public class Aeroport {
 			if (BES.currDate.compareTo(BES.stopDate) > 0 || BES.agenda.size() == 0) {
 				endSimulation = true;
 			}
-			writer.println(logmsg);
+
 			//BES.printStatus(4);
 		}
+		writer.println(BES.log);
 		writer.close();
+		System.out.println("end of simulation, file logger.csv ready");
 	}
 
 }

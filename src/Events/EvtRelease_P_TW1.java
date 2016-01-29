@@ -2,6 +2,7 @@ package Events;
 
 import BeNote.Aeroport;
 import enstabretagne.base.time.LogicalDateTime;
+import enstabretagne.base.time.LogicalDuration;
 import enstabretagne.simulation.core.SortedList;
 
 public class EvtRelease_P_TW1 extends Events {
@@ -9,12 +10,15 @@ public class EvtRelease_P_TW1 extends Events {
 	public EvtRelease_P_TW1() {
 		this.name =  "Runway and Taxiway 1 free";
 		this.start =  new LogicalDateTime("01/01/2015 00:00:00.0000");
-		
+		this.end = this.start;
+		this.ID = 10;
 	}
 	
 	public EvtRelease_P_TW1(LogicalDateTime startDate) {
 		this.name = "Runway and Taxiway 1 free";
 		this.start = startDate;
+		this.end = this.start;
+		this.ID = 10;
 	}
 
 	@Override

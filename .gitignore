@@ -1,4 +1,5 @@
 bin
+logger.csv
 logger.txt
 .settings
 .project

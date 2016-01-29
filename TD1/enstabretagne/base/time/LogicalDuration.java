@@ -21,7 +21,7 @@ public class LogicalDuration implements Comparable<LogicalDuration> {
 		f.setGroupingSize(0);
 		f.setMaximumFractionDigits(9);
 	}
-	//807 voir comment faire mieux l'arrondi en double de LongMaxValue. En retirant 807 ceci permet de faire un arrondi double inférieur
+	//807 voir comment faire mieux l'arrondi en double de LongMaxValue. En retirant 807 ceci permet de faire un arrondi double infï¿½rieur
 	public static final LogicalDuration MAX_VALUE = LogicalDuration.ofSeconds(Long.MAX_VALUE-807);
 	public static final LogicalDuration POSITIVE_INFINITY = new LogicalDuration((Duration)null);
 	public static final LogicalDuration ZERO = new LogicalDuration(Duration.ZERO);
@@ -31,6 +31,9 @@ public class LogicalDuration implements Comparable<LogicalDuration> {
 
 	public int getMinutes(){
 		return Math.round(logicalDuration.getSeconds()/60);
+	}
+	public int getRestSeconds(){
+		return Math.round((logicalDuration.getSeconds()-60*this.getMinutes()));
 	}
 	
 	public static LogicalDuration Max(LogicalDuration d1,LogicalDuration d2)

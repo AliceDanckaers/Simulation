@@ -7,8 +7,11 @@ import enstabretagne.simulation.core.SortedList;
 
 public abstract class Events implements Comparable<Events>{
 	public LogicalDateTime start ;
+	public LogicalDateTime end ;
 	public String name;
 	public Entities plane;
+	public int ID;
+	
 
 	@Override
 	public int compareTo(Events e) {

@@ -13,13 +13,16 @@ public class EvtRollOut extends Events{
 	public EvtRollOut() {
 		this.name =  "Plane rolling out";
 		this.start =  new LogicalDateTime("01/01/2015 00:00:00.0000");
-	
+		this.end = this.start.add(LogicalDuration.ofMinutes(rollOutDuration()));
+		this.ID = 8;
 	}
 
 	public EvtRollOut(LogicalDateTime startDate, Entities plane) {
 		this.name = "Plane rolling out";
 		this.start = startDate;
 		this.plane = plane;
+		this.end = this.start.add(LogicalDuration.ofMinutes(rollOutDuration()));
+		this.ID = 8;
 	}
 
 	@Override
@@ -28,9 +31,8 @@ public class EvtRollOut extends Events{
 		if(aero.facilities.runway.status == "libre")
 		{
 			aero.facilities.runway.setStatus("occupe");
-			int duration =rollOutDuration();
-			agenda.add(new EvtRelease_TW2(start.add(LogicalDuration.ofMinutes(duration)),plane));
-			agenda.add(new EvtTakeOff(start.add(LogicalDuration.ofMinutes(duration)),plane));
+			agenda.add(new EvtRelease_TW2(this.end,plane));
+			agenda.add(new EvtTakeOff(this.end,plane));
 
 		}
 		else

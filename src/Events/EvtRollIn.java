@@ -13,13 +13,16 @@ public class EvtRollIn extends Events{
 	public EvtRollIn() {
 		this.name =  "Plane rolling in";
 		this.start =  new LogicalDateTime("01/01/2015 00:00:00.0000");
-	
+		this.end = this.start.add(LogicalDuration.ofMinutes(rollInDuration()));
+		this.ID = 4;
 	}
 
 	public EvtRollIn(LogicalDateTime startDate, Entities plane) {
 		this.name = "Plane rolling in";
 		this.start = startDate;
 		this.plane = plane;
+		this.end = this.start.add(LogicalDuration.ofMinutes(rollInDuration()));
+		this.ID = 4;
 	}
 
 
@@ -37,7 +40,7 @@ public class EvtRollIn extends Events{
 				// no free gate found - wait on taxiway
 				check=false;
 				aero.waitingListGate.add(plane);
-				agenda.add(new EvtRelease_P(start.add(LogicalDuration.ofMinutes(rollInDuration()))));
+				agenda.add(new EvtRelease_P(this.end));
 			}else
 			{
 				if(aero.facilities.gates[gateID].status == "libre")
@@ -46,9 +49,8 @@ public class EvtRollIn extends Events{
 					check =false;
 					aero.facilities.gates[gateID].status = "occupe";
 					plane.gate = gateID;
-					int duration = rollInDuration();
-					agenda.add(new EvtRelease_P_TW1(start.add(LogicalDuration.ofMinutes(duration))));
-					agenda.add(new EvtUnload(start.add(LogicalDuration.ofMinutes(duration)),plane));
+					agenda.add(new EvtRelease_P_TW1(this.end));
+					agenda.add(new EvtUnload(this.end,plane));
 				}
 				else
 				{

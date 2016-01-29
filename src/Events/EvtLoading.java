@@ -12,13 +12,16 @@ public class EvtLoading extends Events{
 	public EvtLoading() {
 		this.name =  "Plane Loading";
 		this.start =  new LogicalDateTime("01/01/2015 00:00:00.0000");
-	
+		this.end = this.start.add(LogicalDuration.ofMinutes(20));
+		this.ID = 7;
 	}
 
 	public EvtLoading(LogicalDateTime startDate, Entities plane) {
 		this.name =  "Plane Loading";
 		this.start = startDate;
 		this.plane = plane;
+		this.end = this.start.add(LogicalDuration.ofMinutes(20));
+		this.ID = 7;
 	}
 
 	@Override
@@ -27,8 +30,8 @@ public class EvtLoading extends Events{
 		if(aero.facilities.taxiway2.status == "libre")
 		{
 			aero.facilities.taxiway2.setStatus("occupe");
-			agenda.add(new EvtReleaseGate(start.add(LogicalDuration.ofMinutes(20)), plane.gate));
-			agenda.add(new EvtRollOut(start.add(LogicalDuration.ofMinutes(20)),plane));
+			agenda.add(new EvtReleaseGate(this.end, plane.gate));
+			agenda.add(new EvtRollOut(this.end,plane));
 		}
 		else
 		{
