@@ -27,7 +27,7 @@ public class Entities implements Comparable<Entities>{
 		this.planes = new SortedList<Entities>();
 	}
 	
-	public Entities(int planeID, String type) { // constructor for list of planes (does not have status)
+	public Entities(int planeID, String type) { // constructor planes (does not have status)
 		this.ID = planeID;
 		this.type = type;
 

@@ -80,6 +80,10 @@ public class EventsInitializer {
 				agenda.add(new EvtOncomingPlane(evtDate, new Entities(NFlight, "avion")));
 				NFlight += 1;
 			}
+			if(NFlight == 100)
+			{
+				NFlight = 1;
+			}
 		}
 
 	}

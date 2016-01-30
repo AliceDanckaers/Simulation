@@ -3,6 +3,7 @@ package BeNote;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
 
 import Events.Events;
 import Events.EventsInitializer;
@@ -18,7 +19,6 @@ public class Aeroport {
 	public LogicalDateTime currDate;
 	public LogicalDateTime startDate;
 	public LogicalDateTime stopDate;
-	public Entities entities;
 	public String log;
 	public String meteo;
 	public static LogicalDuration dur;
@@ -70,7 +70,7 @@ public class Aeroport {
 		String numPlane;
 
 		try {
-			numPlane = Integer.toString(currEvt.plane.ID);
+			numPlane = String.format("%02d", currEvt.plane.ID);
 		} catch (Exception e) {
 			numPlane = "00";
 		}
@@ -101,6 +101,7 @@ public class Aeroport {
 			System.out.println("begining of simulation");
 		// Start of Simulation
 		while (!endSimulation) {
+			
 			logmsg = BES.simulate();
 			BES.log = BES.log + logmsg;
 			if (BES.currDate.compareTo(BES.stopDate) > 0 || BES.agenda.size() == 0) {
