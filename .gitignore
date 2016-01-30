@@ -5,3 +5,4 @@ logger.txt
 .project
 .classpath
 *~
+*.ods

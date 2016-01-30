@@ -35,7 +35,7 @@ public class EvtRollIn extends Events{
 		boolean check = true;
 		while(check)
 		{
-			if(gateID>3)
+			if(gateID>(aero.nb_gate-1))
 			{
 				// no free gate found - wait on taxiway
 				check=false;

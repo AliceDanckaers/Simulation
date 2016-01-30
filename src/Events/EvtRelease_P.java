@@ -25,7 +25,11 @@ public class EvtRelease_P extends Events{
 	@Override
 	public String doSomething(SortedList<Events> agenda, Aeroport aero) {
 		String log = "liberation de la piste";
-		if(aero.waitingListTakeOff.size()==0)
+		if(aero.facilities.taxiway1.status == "libre" && aero.waitingListLanding.size()!=0) // priority on landing
+		{
+			agenda.add(new EvtRelease_P_TW1(start));
+		}
+		else if(aero.waitingListTakeOff.size()==0)
 		{
 			aero.facilities.runway.status = "libre";
 		}else
