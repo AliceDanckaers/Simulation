@@ -1,48 +1,18 @@
 %Systèmes, entités, variables, événements, processus… 
+Le système que nous simulons est composé de divers objets. \\
 
-Entités :
-  Aéroport :contient tout
-  Piste
-  taxiway (x2)
-  gates (4,6,8)
-  Avions (plein)
-Variables :
-  météo (bonne/ c'est ta mère qui est bonne)
-  date
+Les entités représentes les acteurs de la simulation. Celà inclut les lieux.
+  L'aéroport représente l'ensemble de la simulation. Il contient une piste, deux taxiways, plusieurs portes d'embarquement. Il recoit des avions, qui sont générés en grand nombre au cours de la simulation.
   
+Les variables de la simulation sot moins nombreuses : La date permet de tenir compte du temps dans notre simulation. La météo (qui est soit bonne soit mauvaise) modifie le temps d'approche.
   
-évènements :
-  EvtApproach.java
-  Approche de l'avion : notification à la tour de contrôle, et mise en attente d'atterrissage.
-  EvtLanding.java
-  Atterrissage (dure entre 5 et 20 minutes suivant la météo)
-  EvtLoading.java
-  
-  EvtMeteoChange.java
-  EvtOncomingPlane.java
-  EvtRefueling.java
-  EvtRelease_P_TW1.java
-  EvtRelease_P.java
-  EvtRelease_TW2.java
-  EvtReleaseGate.java
-  EvtRollIn.java
-  
-  On suppose que les avions peuvent utiliser n’importe quelle porte du terminal, pourvu qu’elle soit libre.
-Les avions suivent les phases suivantes en arrivée :
-- Notification de vol en arrivée à la tour de contrôle (attribution d’un n°)
-- Attente si la piste et la voie TW1 n’est pas libre.
-  - Approche. Durée de 2 à 5 minutes.
-- Atterrissage : durée supposée fixe de 2 minutes et avec 100% de réussite.
-- Roulement jusqu’à l’aérogare : le temps de roulement varie de 2 à 6 minutes suivant les avions et les pilotes. Pour des raisons de sécurité, il ne peut y avoir qu’un seul avion sur la TW1. De même, il ne peut y avoir qu’un seul avion à la fois sur la piste.
-- Notification de fin de vol à la tour de contrôle.
-- Déchargement des passagers (durée fixe de 10 minutes) et préparation/ravitaillement de l’avion (durée fixe de 30 minutes).
-Les avions suivent les phases suivantes au départ :
-- Embarquement des passages (si l’avion est prêt), durée fixe de 20 minutes.
-- Notification de vol départ à la tour de contrôle (attribution d’un n°)
-- Attente si TW2 n’est pas libre.
-- Roulement jusqu’à la piste dans les mêmes conditions que pour l’atterrissage. L’avion ne peut pénétrer sur la piste si un autre avion s’y trouve ou est en approche.
-- Décollage : durée supposée fixe de 3 minutes et avec 100% de réussite. Ceci comprend également le délai de sécurité à l’issue duquel un avion peut à nouveau décoller ou engager son approche.
-- Notification à la tour de départ réussi.
-  EvtRollOut.java
-  EvtTakeOff.java
-  EvtUnload.java
+Les évènements sont le coeur de la simulation. Ils sont déclenchés séquentiellement par la boucle de simulation. Ils sont tous datés. Ils planifient d'autres évènements, modifient les entités et les variables et renvoie les informations qui serviront à l'analyse des résultats.
+L'évènement de notification crée l'avion et le met en attente si la piste et le taxiway 1 ne sont pas disponible.
+L'évènement d'approche rend indisponible la piste et le taxiway 1. Il dure 2 à 5 minutes, doublé en cas de mauvais temps.
+L'évènement d'atterrissage dure 2 minutes. Dès qu'il est fini, l'évènement de relachement de piste rend celle-ci disponible.
+L'évènement de roulage entrant occupe le taxiwy 1 et dure 2 à 6 minutes. Dès qu'il est terminé, le taxiway 1 est libéré par l'évènement correspondant si une porte est libbre. 
+Les évènements de déchargement, de ravitaillement et d'embarquement durent respectivement 10, 30 et 20 minutes.
+A l'issu de ceux ci, si le taxiway 2 est libre, l'évènement de roulage sortant est déclenché et l'avion libère la porte pour occuper le taxiway 2. Le roulage dure là encore 2 à 6 minutes.
+Si la piste est libre, l'évènement de décollage est déclenché. Il dure 3 minutes, à l'issu desquelles la piste devient à nouveau libre.
+
+L'évènement de changement de météo existe en parallèle des autres, il agit sur la variable de météo pour la passer de bonne à mauvaise et inversement.
