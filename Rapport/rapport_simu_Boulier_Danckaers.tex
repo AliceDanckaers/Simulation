@@ -1,0 +1,126 @@
+\documentclass[12pt,fleqn]{report} %taille de la police par défaut, et équations jusitifées à gauche
+\input{packages}     % Ce fichier contient tous les packages nécessaires à la compilation
+\makeindex           % donne l'ordre de créer l'index
+%\includegraphics[scale=1]{image}
+\include{glossaire}					 % contient les entrées du glossaire
+\makeglossaries      % donne l'ordre de créer le glossaire
+
+\begin{document}
+\renewcommand{\contentsname}{Sommaire}                % des jolis noms pour la table des matières
+%\renewcommand{\bibname}{Références bibliographiques}  % des jolis noms pour les sections bibliographiques
+\renewcommand{\glossaryname}{Glossaire}               % et glossaire
+
+
+%----------------------------------------------------------------------------------------
+%	 PAGE DE TITRE
+%-----------------------------	-----------------------------------------------------------
+\input{PageDeTitre}
+
+%----------------------------------------------------------------------------------------
+%	COPYRIGHT PAGE
+%----------------------------------------------------------------------------------------
+\newpage
+\input{CopyrightPage}
+
+%----------------------------------------------------------------------------------------
+%	SOMMAIRE
+%----------------------------------------------------------------------------------------
+\tableofcontents  % Imprime le sommaire
+\cleardoublepage  % pour commencer sur une page impaire
+
+%----------------------------------------------------------------------------------------
+%	Préambules
+%----------------------------------------------------------------------------------------
+%\frontmatter      % La partie non numérotée préalable au document principal
+
+%\input{Remerciements}
+%\input{Preambule}
+
+%\mainmatter       % La partie principale du document
+
+%----------------------------------------------------------------------------------------
+%	PART I 
+%----------------------------------------------------------------------------------------
+\chapter{Objectifs de l'étude}
+\input{Objectif.tex}
+
+%----------------------------------------------------------------------------------------
+%	PART II 
+%----------------------------------------------------------------------------------------
+\chapter{Analyse du problème}
+\input{Analyse.tex}
+
+%----------------------------------------------------------------------------------------
+%	PART III 
+%----------------------------------------------------------------------------------------
+\chapter{Modélisation du système}
+\input{Modelisation.tex}
+
+%----------------------------------------------------------------------------------------
+%	PART IV 
+%----------------------------------------------------------------------------------------
+\chapter{Implémentation du modèle}
+\input{implementation.tex}
+
+%----------------------------------------------------------------------------------------
+%	PART V 
+%----------------------------------------------------------------------------------------
+\chapter{Compte-rendu de V \& V}
+\input{CompteRendu.tex}
+
+%----------------------------------------------------------------------------------------
+%	PART VI 
+%----------------------------------------------------------------------------------------
+\chapter{Résultats de la simulation}
+\input{resultats.tex}
+
+%----------------------------------------------------------------------------------------
+%	PART VII 
+%----------------------------------------------------------------------------------------
+\chapter{Analyse des résultats}
+\input{resultatsAnalyse.tex}
+
+
+%----------------------------------------------------------------------------------------
+%	PART VIII 
+%----------------------------------------------------------------------------------------
+\chapter{Perspectives d'évolutions}
+\input{perspectives.tex}
+
+%\backmatter % Partie finale du document, non numérotée
+\appendix
+\addcontentsline{toc}{part}{Annexes}
+
+
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHIE
+%----------------------------------------------------------------------------------------
+%\addcontentsline{toc}{part}{Bibliographie}
+%\bibliographystyle{apalike-fr}
+%\bibliographystyle{plain-fr}
+%\bibliography{bibliographie}
+%\nocite{*}
+
+%----------------------------------------------------------------------------------------
+%	INDEX
+%----------------------------------------------------------------------------------------
+\cleardoublepage
+\phantomsection
+\setlength{\columnsep}{0.75cm}
+\addcontentsline{toc}{part}{Index}
+\label{sec:index}
+\printindex
+
+%----------------------------------------------------------------------------------------
+%	GLOSSAIRE
+%----------------------------------------------------------------------------------------
+\cleardoublepage
+\phantomsection
+\setlength{\columnsep}{0.75cm}
+\addcontentsline{toc}{part}{Glossaire}
+\printglossaries
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
