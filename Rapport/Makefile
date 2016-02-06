@@ -10,6 +10,7 @@ BUILDTEX=$(TEX) $(PROJECT).tex
 all: bib glossaire index
 	$(BUILDTEX)
 	$(BUILDTEX)
+	$(BUILDTEX)
 	
 index: 
 	$(MKINDEX) $(PROJECT)

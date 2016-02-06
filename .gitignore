@@ -6,3 +6,4 @@ logger.txt
 .classpath
 *~
 *.ods
+*.log *.bak *.aux *.bbl *.blg *.i* *.toc *.out *.gl* *.xml *.bcf  *.gz
