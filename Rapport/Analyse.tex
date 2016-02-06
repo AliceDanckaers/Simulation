@@ -1,4 +1,48 @@
-Systèmes, entités, variables, événements, processus… 
-% TODO: upload diagramme de classe
+%Systèmes, entités, variables, événements, processus… 
 
-
+Entités :
+  Aéroport :contient tout
+  Piste
+  taxiway (x2)
+  gates (4,6,8)
+  Avions (plein)
+Variables :
+  météo (bonne/ c'est ta mère qui est bonne)
+  date
+  
+  
+évènements :
+  EvtApproach.java
+  Approche de l'avion : notification à la tour de contrôle, et mise en attente d'atterrissage.
+  EvtLanding.java
+  Atterrissage (dure entre 5 et 20 minutes suivant la météo)
+  EvtLoading.java
+  
+  EvtMeteoChange.java
+  EvtOncomingPlane.java
+  EvtRefueling.java
+  EvtRelease_P_TW1.java
+  EvtRelease_P.java
+  EvtRelease_TW2.java
+  EvtReleaseGate.java
+  EvtRollIn.java
+  
+  On suppose que les avions peuvent utiliser n’importe quelle porte du terminal, pourvu qu’elle soit libre.
+Les avions suivent les phases suivantes en arrivée :
+- Notification de vol en arrivée à la tour de contrôle (attribution d’un n°)
+- Attente si la piste et la voie TW1 n’est pas libre.
+  - Approche. Durée de 2 à 5 minutes.
+- Atterrissage : durée supposée fixe de 2 minutes et avec 100% de réussite.
+- Roulement jusqu’à l’aérogare : le temps de roulement varie de 2 à 6 minutes suivant les avions et les pilotes. Pour des raisons de sécurité, il ne peut y avoir qu’un seul avion sur la TW1. De même, il ne peut y avoir qu’un seul avion à la fois sur la piste.
+- Notification de fin de vol à la tour de contrôle.
+- Déchargement des passagers (durée fixe de 10 minutes) et préparation/ravitaillement de l’avion (durée fixe de 30 minutes).
+Les avions suivent les phases suivantes au départ :
+- Embarquement des passages (si l’avion est prêt), durée fixe de 20 minutes.
+- Notification de vol départ à la tour de contrôle (attribution d’un n°)
+- Attente si TW2 n’est pas libre.
+- Roulement jusqu’à la piste dans les mêmes conditions que pour l’atterrissage. L’avion ne peut pénétrer sur la piste si un autre avion s’y trouve ou est en approche.
+- Décollage : durée supposée fixe de 3 minutes et avec 100% de réussite. Ceci comprend également le délai de sécurité à l’issue duquel un avion peut à nouveau décoller ou engager son approche.
+- Notification à la tour de départ réussi.
+  EvtRollOut.java
+  EvtTakeOff.java
+  EvtUnload.java
