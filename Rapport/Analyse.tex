@@ -1,21 +1,4 @@
 Systèmes, entités, variables, événements, processus… 
 % TODO: upload diagramme de classe
 
-Le système est composé de deux partie : un programme, écrit en Java,  qui implémente la boucle de simulation, et un ficher Excel qui contient les données issues du programme est qui les traite pour en ressortir des résultats statistiques.
-\\
-Le programme Java implémente une boucle de simulation évènementielle, telle que décrite par la figure~\ref{replique}, dans la classe principale Aéroport. 
-Le processus d'initialisation remplit un agenda (de type <Events>SortedList) qui contient les évènements d'arrivés d'avion dans l'espace aérien de l'aéroport, ainsi que les changement de météo. Il instancie également les objets représentant les infrastructures (tous de type Facilities), les avions étant générés durant la simulation par le traitement de l'évènement correspondant à leur arrivée.
-Tous les évènements sont des sous-classes de la classe abstraite Events. Chacun contient sa propre méthode \textit{doSomething()} qui est appelée par la boucle de simulation. Cette méthode crée les évènements dont découle l'évènement courant et renvoie une chaine de caractère decrivant l'évènement qui sera intégrée dans le logger, le fichier retourné par le programme.
-L'architecture du programme Java est décrite dans le diagramme de classe~\ref{class_diagramm}.
 
- \begin{figure}[h]
-   \caption{\label{replique} Boucle de simulation}
- \includegraphics{replique_simu.bmp}
- \end{figure}
-
-
-\begin{figure}[h]
-   \caption{\label{class_diagramm} Diagramme de classe}
- \includegraphics{Class_Diagramm.png}
- \end{figure}
- 
