@@ -1,4 +1,184 @@
 %Systèmes, entités, variables, événements, processus… 
 
 Le système que nous allons simuler est un aéroport. Toutefois, notre modèle peut-être grandement simplifié par rapport à  un aéroport réaliste. Puisque l'étude se focalise sur la surcharge du terminal, seul le processus d'atterrissage, de décollage et de traitement des avions nous intéresse. On peut donc ignorer de nombreux aspects, tels que la gestion des personnels, l'entretien des infrastructures, la gestion financière.
-La seule chose pertinente dans notre cadre est le status des avions et des infrastuctures (occupés ou non) au cours du temps. c'est à partir de ces informations que nous pourront extraire les statistiques de fréquentation demandées.
+La seule chose pertinente dans notre cadre est le statut des avions et des infrastructures (occupés ou non) au cours du temps. c'est à partir de ces informations que nous pourront extraire les statistiques de fréquentation demandées.
+Ainsi les systèmes environnant en interaction avec le système étudié sont essentiellement constitué des Avions.
+
+
+Les entités de simulations identifiées à la lecture du sujet sont :
+\begin{itemize}[label=--]
+\item L'aéroport de Brest
+\item Les avions
+\item les infrastructures de l'aéroport, a savoir :
+\end{itemize}
+
+\begin{itemize}[leftmargin=3cm]
+	\item la piste
+	\item un taxiway utilisé à l'atterrissage
+	\item plusieurs portes (4, 6 ou 8)
+	\item un taxiway utilisé au décollage
+\end{itemize}
+
+
+Le cycle de vie des infrastructures est bien sur inclus dans celui de l'aéroport. C'est l'aéroport qui donne créé ses infrastructures. Nous allons dans les paragraphes qui suivent analyser chaque entité et identifier puis caractériser:
+\begin{itemize}[label=--]
+\item leurs variables d'états
+\item leurs propriétaires d'initialisation et caractéristiques
+\item les événements temporels, et d'états
+\item les comportements et hypothèses de modélisation
+\end{itemize} 
+
+\section{L'aéroport}
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{|>{\begin{bf} \columncolor{lightblue}} l <{\end{bf}}|l|}
+  \hline
+  Entité & Aéroport \\ 
+  \hline
+  Type d'Entité & Permanente \\ 
+  \hline
+    & meteo  \\
+    & waitingListLanding \\
+    & waitingListGate \\
+    & waitingListTW2 \\
+    \multirow{-5}{*}{Variables d'états}& waitingListTakeOff \\
+  \hline
+  \multirow{-1}{*}{Variables statistiques de scrutation } &  \\ 
+  \hline
+   & currDate \\
+   & startDate \\
+   & stopDate \\
+   & evtinit \\
+   \multirow{-5}{*}{Paramètres techniques et données d'initialisation } & nb\_gate \\
+  \hline
+   & EventsInitializer \\
+   & EvtRelease\_P\_TW1 \\
+   & EvtReleaseGate \\
+   & EvtRelease\_TW2 \\
+   \multirow{-5}{*}{Événements} & EvtRelease\_P \\
+  \hline
+    \multirow{-1}{*}{Comportement } &  \\ 
+  \hline
+   Processus Stochastique & Aucun\\ 
+   \hline
+\end{tabular}
+\end{center}
+\caption{Analyse de l'entité aéroport}
+\label{aeroAna}
+\end{table}
+
+\section{Les avions}
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{|>{\begin{bf} \columncolor{lightblue}} l <{\end{bf}}|l|}
+  \hline
+  Entité & Avion \\ 
+  \hline
+  Type d'Entité & Temporaire \\ 
+  \hline
+    \multirow{-1}{*}{Variables d'états}& status  \\
+  \hline
+  \multirow{-1}{*}{Variables statistiques de scrutation } & \\ 
+  \hline
+   & ID \\
+    \multirow{-2}{*}{Paramètres techniques et données d'initialisation }& type \\ 
+  \hline
+   & EvtOncomingPlane\\
+   & EvtApproach \\
+   & EvtLanding \\
+   & EvtRollIn\\
+   & EvtLoading \\
+   & EvtRefueling\\
+   & EvtRollOut \\
+   & EvtUnload \\
+   \multirow{-9}{*}{Événements}& EvtTakeOff \\ 
+  \hline
+    \multirow{-1}{*}{Comportement } & \\ 
+  \hline
+   Processus Stochastique & Aucun\\ 
+   \hline
+\end{tabular}
+\end{center}
+\caption{Analyse de l'entité avion}
+\label{avionAna}
+\end{table}
+
+\section{Les infrastructures}
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{|>{\begin{bf} \columncolor{lightblue}} l <{\end{bf}}|l|}
+  \hline
+  Entité & Aéroport \\ 
+  \hline
+  Type d'Entité & Permanente \\ 
+  \hline
+   & LB  \\
+    & Michael Duberry \\
+    & Dominic Matteo \\
+    \multirow{-4}{*}{Variables d'états}& Didier Domi \\ 
+  \hline
+    & MC  \\
+    & Eirik Bakke \\
+  \multirow{-3}{*}{Variables statistiques de scrutation } & Jody Morris \\ 
+  \hline
+   & MC  \\
+    & Eirik Bakke \\
+    \multirow{-3}{*}{Paramètres techniques et données d'initialisation } & Jody Morris \\ 
+  \hline
+   &  Alan Smith \\
+   \multirow{-2}{*}{Événements}& ST \\ 
+  \hline
+  & MC  \\
+    & Eirik Bakke \\
+    \multirow{-3}{*}{Comportement } & Jody Morris \\ 
+  \hline
+   Processus Stochastique & Aucun\\ 
+   \hline
+\end{tabular}
+\end{center}
+\caption{Analyse de l'entité infrastructure}
+\label{infraAna}
+\end{table}
+
+\section{Le scénario}
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{|>{\begin{bf} \columncolor{lightblue}} l <{\end{bf}}|l|}
+  \hline
+  Entité & Aéroport \\ 
+  \hline
+  Type d'Entité & Permanente \\ 
+  \hline
+   & LB  \\
+    & Michael Duberry \\
+    & Dominic Matteo \\
+    \multirow{-4}{*}{Variables d'états}& Didier Domi \\ 
+  \hline
+    & MC  \\
+    & Eirik Bakke \\
+  \multirow{-3}{*}{Variables statistiques de scrutation } & Jody Morris \\ 
+  \hline
+   & MC  \\
+    & Eirik Bakke \\
+    \multirow{-3}{*}{Paramètres techniques et données d'initialisation } & Jody Morris \\ 
+  \hline
+   &  Alan Smith \\
+   \multirow{-2}{*}{Événements}& ST \\ 
+  \hline
+  & MC  \\
+    & Eirik Bakke \\
+    \multirow{-3}{*}{Comportement } & Jody Morris \\ 
+  \hline
+   Processus Stochastique & Aucun\\ 
+   \hline
+\end{tabular}
+\end{center}
+\caption{Analyse de l'entité aéroport}
+\label{scenaAna}
+\end{table}
+
+\section{Les listes d'attente}
