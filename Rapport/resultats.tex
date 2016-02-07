@@ -1,3 +1,31 @@
-Synthèse des résultats. On utilisera des graphiques (histogrammes, camemberts, etc.) pour faciliter la lecture.
+%Synthèse des résultats. On utilisera des graphiques (histogrammes, camemberts, etc.) pour faciliter la lecture.
+%Les résultats seront fournis sous forme de fichiers texte au format CSV ou . 
 
-Les résultats seront fournis sous forme de fichiers texte au format CSV ou . 
+La simulation a été executée sur 4 scénarios. Chaque scénario durait 90 jours, et voyait des avions arriver avec des probabilités identiques :
+\begin{itemize}
+  \item Un avion toutes les 20 minutes en moyenne en horaire normal.
+  \item Un avion toutes les 10 minutes en heure de pointe : de 7h à 10h et de 17h à 19h, en semaine.
+  \item Un avion toutes les 40 minutes le week-end.
+  \item Aucun avion de 22h à 7h.
+\end{itemize}
+Toutes les avions ont le même comportement, tel que décrit dans la modélisation du problème.
+
+Les quatre scénarios ont pour seule différences le nombre de portes d'embarquement instanciées : 4, 6, 8 ou 12.
+
+On étudie les horaires de notification des avions à la tour de contrôle et de début de phase d'approche. La différence entre ces deux dates indique le retard de l'avion, c'est à dire le temps que l'avion a passé en l'air à attendre la permission d'atterrir. Les moyennes de ces retards sont compilés dans le tableau \ref{retard_moyen}
+
+
+\begin{table}[h]
+   \caption{\label{retard_moyen} Retard moyen}
+\begin{tabular}{|l|c|c|r|}
+  \hline
+  4 portes & 6 portes & 8 portes & 12 portes \\
+  \hline
+  123:12:35 & 544:06:03 & 356:29:14 & 0:08:10\\
+  \hline
+\end{tabular}
+
+
+
+
+
