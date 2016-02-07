@@ -40,7 +40,7 @@ public class EvtRollIn extends Events{
 				// no free gate found - wait on taxiway
 				check=false;
 				aero.waitingListGate.add(plane);
-				agenda.add(new EvtRelease_P(this.end));
+				//agenda.add(new EvtRelease_P(this.end));
 			}else
 			{
 				if(aero.facilities.gates[gateID].status == "libre")

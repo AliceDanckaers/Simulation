@@ -26,6 +26,7 @@ public class EvtLanding extends Events {
 	@Override
 	public String doSomething(SortedList<Events> agenda, Aeroport aero) {
 		String log = "atterissage avion "+ plane.ID;
+		agenda.add(new EvtRelease_P(this.end));
 		agenda.add(new EvtRollIn(this.end,plane));
 		return log;
 	}
