@@ -30,35 +30,29 @@ Le cycle de vie des infrastructures est bien sur inclus dans celui de l'aéropor
 
 \section{L'aéroport}
 
-\begin{table}[h!]
+\begin{table}[H]
 \begin{center}
-\begin{tabular}{|>{\begin{bf} \columncolor{lightblue}} l <{\end{bf}}|l|}
+\begin{tabular}{|>{\begin{bf} \columncolor{lightblue}} p{7cm} <{\end{bf}}|p{7cm}|}
   \hline
   Entité & Aéroport \\ 
   \hline
   Type d'Entité & Permanente \\ 
   \hline
     & meteo  \\
+    & currDate \\
     & waitingListLanding \\
     & waitingListGate \\
     & waitingListTW2 \\
-    \multirow{-5}{*}{Variables d'états}& waitingListTakeOff \\
+    \multirow{-6}{7cm}{Variables d'états}& waitingListTakeOff \\
   \hline
-  \multirow{-1}{*}{Variables statistiques de scrutation } &  \\ 
+   Variables statistiques de scrutation & \\ 
   \hline
-   & currDate \\
    & startDate \\
    & stopDate \\
    & evtinit \\
-   \multirow{-5}{*}{Paramètres techniques et données d'initialisation } & nb\_gate \\
+   \multirow{-4}{7cm}{Paramètres techniques et données d'initialisation } & nb\_gate \\
   \hline
-   & EventsInitializer \\
-   & EvtRelease\_P\_TW1 \\
-   & EvtReleaseGate \\
-   & EvtRelease\_TW2 \\
-   \multirow{-5}{*}{Événements} & EvtRelease\_P \\
-  \hline
-    \multirow{-1}{*}{Comportement } &  \\ 
+  	Événements & Aucun\\
   \hline
    Processus Stochastique & Aucun\\ 
    \hline
@@ -68,36 +62,56 @@ Le cycle de vie des infrastructures est bien sur inclus dans celui de l'aéropor
 \label{aeroAna}
 \end{table}
 
+Les données d'initialisation de l'aéroport sont les suivantes:
+\begin{itemize}[label=--]
+\item La date d'ouverture de l'aéroport (début de la simulation)
+\item La date de fermeture de l'aéroport (fin de la simulation)
+\item La météo au début de la simulation
+\item Le nombre de portes
+\end{itemize}
+Elles sont lues dans le fichier de configuration (config.properties) et permettent de configurer l'état initial de l'aéroport.
+
+Les états de l'aéroport sont :
+\begin{itemize}[label=--]
+\item Les conditions météorologique au niveau de l'aéroport, c'est-à-dire la météo
+\item La date de l'événement courant
+\item Une liste d'attente qui contiendra les avions qui ont contactés la tour de contrôle mais qui doivent attendre la libération de la piste et du taxiway 1 pour atterrir.
+\item Une liste d'attente qui pourra contenir un avion qui attendra qu'une porte se libère sur le taxiway 1
+\item Une liste d'attente qui contiendra les avions qui attendent à une porte la libération du taxiway 2 pour repartir
+\item Une liste d'attente qui pourra contenir un avion qui attendra que la piste se libère sur le taxiway 2 pour décoller.
+\end{itemize}
+
+Il n'y a pas d'événements temporels qui sont directement liés avec l'aéroport, car on a mis en place l'entité infrastructure
 \section{Les avions}
 
-\begin{table}[h!]
+\begin{table}[H]
 \begin{center}
-\begin{tabular}{|>{\begin{bf} \columncolor{lightblue}} l <{\end{bf}}|l|}
+\begin{tabular}{|>{\begin{bf} \columncolor{lightblue}} p{7cm} <{\end{bf}}|p{7cm}|}
   \hline
   Entité & Avion \\ 
   \hline
   Type d'Entité & Temporaire \\ 
   \hline
-    \multirow{-1}{*}{Variables d'états}& status  \\
+  Variables d'états & status  \\
   \hline
-  \multirow{-1}{*}{Variables statistiques de scrutation } & \\ 
+  Variables statistiques de scrutation & Aucune\\ 
   \hline
    & ID \\
-    \multirow{-2}{*}{Paramètres techniques et données d'initialisation }& type \\ 
+    \multirow{-2}{7cm}{Paramètres techniques et données d'initialisation }& type \\ 
   \hline
    & EvtOncomingPlane\\
    & EvtApproach \\
    & EvtLanding \\
    & EvtRollIn\\
-   & EvtLoading \\
-   & EvtRefueling\\
-   & EvtRollOut \\
    & EvtUnload \\
-   \multirow{-9}{*}{Événements}& EvtTakeOff \\ 
+   & EvtRefueling\\
+   & EvtLoading \\
+   & EvtRollOut \\
+   \multirow{-9}{7cm}{Événements}& EvtTakeOff \\ 
   \hline
-    \multirow{-1}{*}{Comportement } & \\ 
-  \hline
-   Processus Stochastique & Aucun\\ 
+   & Process de durée de roulement à l'arrivée \\
+   & Process de durée d'approche pour l'atterrissage \\
+   \multirow{-3}{7cm}{Processus Stochastique} & Process de durée de roulement au départ\\ 
    \hline
 \end{tabular}
 \end{center}
@@ -105,35 +119,67 @@ Le cycle de vie des infrastructures est bien sur inclus dans celui de l'aéropor
 \label{avionAna}
 \end{table}
 
+
+Les variables d'initialisation portent sur :
+\begin{itemize}[label=--]
+\item le numéro d'identification ID
+\item le type d'entité. Il a la même valeur pour tous les avions. Il permet d'identifier cette entité comme étant bien un avion
+\end{itemize}
+Les états de l'avion sont :
+\begin{itemize}[label=--]
+\item En attente de libération de la piste et du taxiway pour atterrir
+\item En approche
+\item En cours d'atterrissage
+\item En roulement sur le taxiway 1
+\item En attente sur le taxiway 1
+\item En cours de déchargement 
+\item En cours de réapprovisionnement
+\item En cours de chargement
+\item En attente de libération du taxiway 2
+\item En roulement sur le taxiway 2
+\item En attente sur le taxiway 2
+\item En cours de décollage
+\end{itemize}
+Les événements temporels identifiés sont :
+\begin{itemize}[label=--]
+\item L'avion contacte la tour pour signifier son approche
+\item L'avion réalise la phase d'approche de la piste
+\item Atterrissage de l'avion
+\item Roulement de l'avion en entrée sur le taxiway 1
+\item Le déchargement de l'avion
+\item Le ravitaillement de l'avion
+\item Le chargement de l'avion
+\item Le roulement de l'avion en sortie sur le taxiway 2
+\item Le décollage de l'avion
+\end{itemize}
+
+La durée de certains événements est déterminée par un processus stochastique, conformément à ce qui a été demandé dans le cahier des charges. Le roulement en sortie et en entrée prends entre 2 et 6 minutes. La durée d'approche pour l'atterrissage prends entre 2 et 5 minutes par beau temps et le double dans le cas contraire.
+
 \section{Les infrastructures}
 
-\begin{table}[h!]
+\begin{table}[H]
 \begin{center}
-\begin{tabular}{|>{\begin{bf} \columncolor{lightblue}} l <{\end{bf}}|l|}
+\begin{tabular}{|>{\begin{bf} \columncolor{lightblue}} p{7cm} <{\end{bf}}|p{7cm}|}
   \hline
-  Entité & Aéroport \\ 
+  Entité & infrastructures \\ 
   \hline
   Type d'Entité & Permanente \\ 
   \hline
-   & LB  \\
-    & Michael Duberry \\
-    & Dominic Matteo \\
-    \multirow{-4}{*}{Variables d'états}& Didier Domi \\ 
+    & runway.status \\
+    & taxiway1.status \\
+    & taxiway2.status \\
+    \multirow{-4}{7cm}{Variables d'états} & gates[k].status (k de 0 à nb\_gate) \\ 
   \hline
-    & MC  \\
-    & Eirik Bakke \\
-  \multirow{-3}{*}{Variables statistiques de scrutation } & Jody Morris \\ 
+  Variables statistiques de scrutation  & Aucune \\ 
   \hline
-   & MC  \\
-    & Eirik Bakke \\
-    \multirow{-3}{*}{Paramètres techniques et données d'initialisation } & Jody Morris \\ 
+  Paramètres techniques et données d'initialisation  & Aucun \\ 
   \hline
-   &  Alan Smith \\
-   \multirow{-2}{*}{Événements}& ST \\ 
+   & EvtRelease\_P\_TW1 \\
+   & EvtReleaseGate \\
+   & EvtRelease\_TW2 \\
+   \multirow{-4}{7cm}{Événements}&  EvtRelease\_P  \\ 
   \hline
-  & MC  \\
-    & Eirik Bakke \\
-    \multirow{-3}{*}{Comportement } & Jody Morris \\ 
+    Comportement & Aucun \\ 
   \hline
    Processus Stochastique & Aucun\\ 
    \hline
@@ -143,37 +189,42 @@ Le cycle de vie des infrastructures est bien sur inclus dans celui de l'aéropor
 \label{infraAna}
 \end{table}
 
+Il n'y a pas de paramètres d'initialisation des infrastructures. Elles sont toujours composées d'une piste, de deux taxiway et d'une liste de portes dont le nombre est défini à la création de l'aéroport.
+
+Les états des infrastructures sont accessibles via le champs status des entités filles qui la composent.
+
+Les événements temporels identifiés sont:
+\begin{itemize}[label=--]
+\item La libération de la piste et du taxiway 1
+\item La libération d'une porte
+\item La libération du taxiway 2
+\item La libération de la piste seule
+\end{itemize}
+
 \section{Le scénario}
 
-\begin{table}[h!]
+\begin{table}[H]
 \begin{center}
-\begin{tabular}{|>{\begin{bf} \columncolor{lightblue}} l <{\end{bf}}|l|}
+\begin{tabular}{|>{\begin{bf} \columncolor{lightblue}} p{7cm}<{\end{bf}}|p{7cm}|}
   \hline
-  Entité & Aéroport \\ 
+  Entité &  agenda\\ 
   \hline
   Type d'Entité & Permanente \\ 
   \hline
-   & LB  \\
-    & Michael Duberry \\
-    & Dominic Matteo \\
-    \multirow{-4}{*}{Variables d'états}& Didier Domi \\ 
+  Variables d'états & Aucune \\ 
   \hline
-    & MC  \\
-    & Eirik Bakke \\
-  \multirow{-3}{*}{Variables statistiques de scrutation } & Jody Morris \\ 
+  Variables statistiques de scrutation & offset \\ 
   \hline
-   & MC  \\
-    & Eirik Bakke \\
-    \multirow{-3}{*}{Paramètres techniques et données d'initialisation } & Jody Morris \\ 
+    & startDate\\
+    \multirow{-2}{7cm}{Paramètres techniques et données d'initialisation } & stopDate \\ 
   \hline
-   &  Alan Smith \\
-   \multirow{-2}{*}{Événements}& ST \\ 
+   Événements & EventsInitializer \\ 
   \hline
-  & MC  \\
-    & Eirik Bakke \\
-    \multirow{-3}{*}{Comportement } & Jody Morris \\ 
+    & generatePlane \\
+    \multirow{-2}{7cm}{Comportement } & generateMeteo\\ 
   \hline
-   Processus Stochastique & Aucun\\ 
+   & Process de génération de l'arrivée des avions\\
+   \multirow{-2}{7cm}{Processus Stochastique} & Process de génération de la météo \\ 
    \hline
 \end{tabular}
 \end{center}
@@ -181,4 +232,10 @@ Le cycle de vie des infrastructures est bien sur inclus dans celui de l'aéropor
 \label{scenaAna}
 \end{table}
 
-\section{Les listes d'attente}
+Les variables d'initialisation portent sur:
+\begin{itemize}[label=--]
+\item La date de début de simulation
+\item La date de fin de simulation
+\end{itemize}
+
+Le seul événement temporel identifié est l'événement d'initialisation du scénario qui va générer les changements de météo ainsi que les arrivées d'avions. Ceci est effectué par un processus stochastique.
