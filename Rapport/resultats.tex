@@ -3,18 +3,18 @@
 
 La simulation a été exécutée sur 4 scénarios. Chaque scénario durait 90 jours, et voyait des avions arriver avec des probabilités identiques :
 \begin{itemize}
-  \item Un avion toutes les 20 minutes en moyenne en horaire normal.
+  \item Un avion toutes les 20 minutes en moyenne en horaires normaux.
   \item Un avion toutes les 10 minutes en heure de pointe : de 7h à 10h et de 17h à 19h, en semaine.
   \item Un avion toutes les 40 minutes le week-end.
   \item Aucun avion de 22h à 7h.
 \end{itemize}
-Toutes les avions ont le même comportement, tel que décrit dans la modélisation du problème.
+Tous les avions ont le même comportement, tel qu'il est décrit dans la modélisation du problème (voir chapitre~\ref{ch:mod}).
 
-Les quatre scénarios ont pour seule différences le nombre de portes d'embarquement instanciées : 4, 6, 8 ou 12.
+Les quatre scénarios ont pour seule différence le nombre de portes d'embarquement instanciées : 4, 6, 8 ou 12.
 
-On étudie les horaires de notification des avions à la tour de contrôle et de début de phase d'approche. La différence entre ces deux dates indique le retard de l'avion, c'est à dire le temps que l'avion a passé en l'air à attendre la permission d'atterrir. Les moyennes de ces retards sont compilés dans le tableau \ref{retard_moyen}
+On étudie les horaires de notification des avions à la tour de contrôle et de début de phase d'approche. La différence entre ces deux dates indique le retard de l'avion, c'est-à-dire le temps que l'avion a passé en l'air à attendre la permission d'atterrir. Les moyennes de ces retards sont compilées dans le tableau \ref{retard_moyen}
 
-\begin{table}[h]
+\begin{table}[H]
 \begin{center}
 \begin{tabular}{|l|c|c|r|}
   \hline
@@ -28,7 +28,7 @@ On étudie les horaires de notification des avions à la tour de contrôle et de
 \end{table}
 
 \section{Retard en fonction du nombre de portes}
-Voici ci dessous des répartitions plus détaillées des retards en fonction du nombre de portes:
+Voici ci dessous des répartitions plus détaillées des retards en fonction du nombre de portes.
 
 \subsection{Aéroport à 4 portes d'embarquement}
 La répartition des retards pour un aéroport à 4 portes,en pourcentage d'avions dans des intervalles de retards est donnée en figure~\ref{retard_camenbert_4}.
@@ -38,7 +38,7 @@ La répartition des retards pour un aéroport à 4 portes,en pourcentage d'avion
  \caption{\label{retard_camenbert_4} Répartition des retards, avec 4 portes} 
 \end{figure}
  
- Une autre donnée intéressante est la répartition des retards par jour, donnée par la figure~\ref{retard_jour_4}
+Une autre donnée intéressante est la répartition des retards par jour, donnée par la figure~\ref{retard_jour_4}.
 \begin{figure}[H]
 \centering \includegraphics[scale=0.6]{retard_jours.png}
  \caption{\label{retard_jour_4} Retard avec 4 portes} 
@@ -52,7 +52,7 @@ La répartition des retards pour un aéroport à 6 portes,en pourcentage d'avion
  \caption{\label{retard_camenbert_6} Répartition des retards, avec 6 portes} 
 \end{figure}
  
- Une autre donnée intéressante est la répartition des retards par jour, donnée par la figure~\ref{retard_jour_6}
+De même que précédemment la répartition des retards par jour est donnée par la figure~\ref{retard_jour_6}.
 \begin{figure}[H]
 \centering \includegraphics[scale=0.6]{retard_jour.png}
  \caption{\label{retard_jour_6} Retard avec 6 portes} 
@@ -66,7 +66,7 @@ La répartition des retards pour un aéroport à 8 portes,en pourcentage d'avion
  \caption{\label{retard_camenbert_8} Répartition des retards, avec 8 portes} 
 \end{figure}
  
- Une autre donnée intéressante est la répartition des retards par jour, donnée par la figure~\ref{retard_jour_8}
+La répartition des retards par jour est donnée par la figure~\ref{retard_jour_8}.
 \begin{figure}[H]
 \centering \includegraphics[scale=0.6]{retard_jour.png}
  \caption{\label{retard_jour_8} Retard avec 8 portes} 
@@ -80,14 +80,14 @@ La répartition des retards pour un aéroport à 12 portes,en pourcentage d'avio
  \caption{\label{retard_camenbert_12} Répartition des retards, avec 12 portes} 
 \end{figure}
  
- Une autre donnée intéressante est la répartition des retards par jour, donnée par la figure~\ref{retard_jour_12}
+Enfin, la répartition des retards par jour est donnée par la figure~\ref{retard_jour_12}.
 \begin{figure}[H]
 \centering \includegraphics[scale=0.6]{retard_jour.png}
  \caption{\label{retard_jour_12} Retard avec 12 portes} 
 \end{figure}
  
 \section{Répartition journalière des arrivées}
-Quelque soit le nombre de portes, les nombres moyens d'atterrissage par heure --respectivement en jour de semaine et en week-end-- restent les mêmes, tels que donnés dans les figures~\ref{arrivee_semaine} et~\ref{arrivee_we}.
+Quelque soit le nombre de portes, les nombres moyens d'atterrissages par heure -- respectivement en jour de semaine et en week-end-- restent les mêmes, tels qu'on peut les voir dans les figures~\ref{arrivee_semaine} et~\ref{arrivee_we}.
 
 \begin{figure}[H]
 \centering \includegraphics[scale=0.6]{arrivee_semaine.png}

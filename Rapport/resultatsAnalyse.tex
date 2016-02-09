@@ -2,18 +2,20 @@
 
 \section{Un aéroport saturé}
 Au vu des résultats précédents, il semble évident que l'aéroport tel qu'il est simulé dans les cas à 4, 6 et 8 portes (nous reviendrons sur le cas à 12 portes plus loin) ne fonctionne pas de façon optimal.
-Les retards s'accumulent très vite, d'autant plus vite que le nombres de portes est faible. Puisque le système de l'aéroport n'est pas capable de gérer les avions plus vite qu'ils n'arrivent, ceux-ci s'accumulent, tout d'abord dans les terminaux puis dans la liste d'attente pour l'atterrissage.
-Lorsque la nuit tombe et que les avions cessent d'arriver à l'aéroport, la liste commence à se vider, tous les avions en attente se posant sans être remplacer. On tombe alors dans deux cas : soit la liste est suffisamment courte pour que tous les avions se posent avant la réouverture de l'aéroport, auquel cas le lendemain l'aéroport peut reprendre son activité telle quelle, soit la nuit entière ne suffit pas à vider la file, auquel cas les premiers avions arrivant au matin ne peuvent pas atterrir et passent dans la file d'attente que commence à grandir à chaque jour, entraînant des retards de plus en plus long. Les week-ends, avec leur fréquentation moindre, peuvent aider à désengorger le flux d'avions en attente mais ne sont en général pas suffisant.
+Les retards s'accumulent très vite, d'autant plus vite que le nombre de portes est faible. Puisque le système de l'aéroport n'est pas capable de gérer les avions plus vite qu'ils n'arrivent, ceux-ci s'accumulent, tout d'abord dans les terminaux puis dans la liste d'attente pour l'atterrissage.
+Lorsque la nuit tombe et que les avions cessent d'arriver à l'aéroport, la liste commence à se vider, tous les avions en attente se posant sans être remplacés. On tombe alors dans deux cas : soit la liste est suffisamment courte pour que tous les avions se posent avant la réouverture de l'aéroport, auquel cas le lendemain l'aéroport peut reprendre son activité telle quelle, soit la nuit entière ne suffit pas à vider la file, auquel cas les premiers avions arrivant au matin ne peuvent pas atterrir et passent dans la file d'attente qui commence à grandir à chaque jour, entraînant des retards de plus en plus long. Les week-ends, avec leur fréquentation moindre, peuvent aider à désengorger le flux d'avions en attente mais ne sont en général pas suffisant.
 Une bonne illustration de ce phénomène est la figure~\ref{retard_jour_8}. En effet, jusqu'au 15/02, les retards restent faibles : on observe des pics mais ils sont résorbés avant la fin de la journée. Toutefois, à partir le 15/02, le flux devient ingérable et les retards augmentent de façon linéaire avec le nombre de jour.
 Le moment où l'aéroport passe en mode saturé advient d'autant plus tôt que le nombre de porte est faible.
 
 Le cas de l'aéroport à 12 portes est particulier et peut apporter un début de réponse. L'aéroport ne passe pas en mode saturé au cours des 90 jours de simulation. Il semble que le rôle de tampon joué par les portes d'embarquement permettent de fluidifier suffisamment le trafic pour qu'il n'y ai jamais de blocage et donc de saturation.
-
+\vspace{1cm}
 \section{Des solutions au problème}
-Nous avons vu à la section précédente qu'un plus grand nombre de porte d'embarquement permet de fluidifier le système. La solution la plus évidente consiste donc à construire plus de portes d'embarquement.
+Nous avons vu à la section précédente qu'un plus grand nombre de porte d'embarquement permet de fluidifier le système. La solution la plus évidente consiste donc à construire plus de portes d'embarquement. Cependant à partir d'un certain nombre de portes c'est le nombre de taxiway qui devient le paramètre bloquant. En effet, si on a assez de place pour répartir les avions au niveau des portes, il faut ensuite avoir suffisamment de taxiway pour que les avions rejoignent ces dites portes rapidement.
+
 Toutefois d'autres solutions peuvent être envisagées. Bien que non testée dans notre simulation, il nous semble important d'en faire part ici, afin que des études puissent être menées dans ces directions.
-Une des solutions alternatives face à un trafic trop important est de réduire ce trafic. Réduire le nombre d'avions arrivant à l'aéroport permettrai de mieux traiter chaque avion. Nous sommes bien conscient que la tendance actuelle n'est pas au ralentissement du trafic aérien, mais il nous apparaissait important de l'évoquer.
-Une autre solution serait l'ajout d'une seconde piste d'atterrissage. Un piste supplémentaire permettrait en effet plus de souplesse dans la gestion des flux.
+Une des solutions alternatives face à un trafic trop important est de réduire ce trafic. Réduire le nombre d'avions arrivant à l'aéroport permettrai de mieux traiter chaque avion. Nous sommes bien conscient que la tendance actuelle n'est pas au ralentissement du trafic aérien, mais il nous paraissait important de l'évoquer.
+
+Une autre solution serait l'ajout d'une seconde piste d'atterrissage. Une piste supplémentaire permettrait en effet plus de souplesse dans la gestion des flux.
 
 
 

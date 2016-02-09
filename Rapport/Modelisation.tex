@@ -1,21 +1,20 @@
-% Conditions d’occurrence et algorithmes de traitement des événements, validation…
+Le système que nous simulons est composé de divers objets. 
 
-% Hypothèse de modélisation éventuelles.  
+Les entités représentent les acteurs de la simulation, cela inclut les infrastructures.
 
-Le système que nous simulons est composé de divers objets. \\
-
-Les entités représentes les acteurs de la simulation. Celà inclut les lieux.
-  L'aéroport représente l'ensemble de la simulation. Il contient une piste, deux taxiways, plusieurs portes d'embarquement. Il recoit des avions, qui sont générés en grand nombre au cours de la simulation.
+L'aéroport représente le moteur de la simulation. Il contient une piste, deux taxiways, plusieurs portes d'embarquement. Il reçoit des avions, qui sont générés en grand nombre au cours de la simulation.
   
-Les variables de la simulation sot moins nombreuses : La date permet de tenir compte du temps dans notre simulation. La météo (qui est soit bonne soit mauvaise) modifie le temps d'approche.
+Les variables de la simulation sont moins nombreuses : La date permet de tenir compte du temps dans notre simulation. La météo (qui est soit bonne soit mauvaise) modifie le temps d'approche.
   
-Les évènements sont le coeur de la simulation. Ils sont déclenchés séquentiellement par la boucle de simulation. Ils sont tous datés. Ils planifient d'autres évènements, modifient les entités et les variables et renvoie les informations qui serviront à l'analyse des résultats.
-L'évènement de notification crée l'avion et le met en attente si la piste et le taxiway 1 ne sont pas disponible.
-L'évènement d'approche rend indisponible la piste et le taxiway 1. Il dure 2 à 5 minutes, doublé en cas de mauvais temps.
-L'évènement d'atterrissage dure 2 minutes. Dès qu'il est fini, l'évènement de relachement de piste rend celle-ci disponible.
-L'évènement de roulage entrant occupe le taxiwy 1 et dure 2 à 6 minutes. Dès qu'il est terminé, le taxiway 1 est libéré par l'évènement correspondant si une porte est libbre. 
-Les évènements de déchargement, de ravitaillement et d'embarquement durent respectivement 10, 30 et 20 minutes.
-A l'issu de ceux ci, si le taxiway 2 est libre, l'évènement de roulage sortant est déclenché et l'avion libère la porte pour occuper le taxiway 2. Le roulage dure là encore 2 à 6 minutes.
-Si la piste est libre, l'évènement de décollage est déclenché. Il dure 3 minutes, à l'issu desquelles la piste devient à nouveau libre.
+Les événements sont le cœur de la simulation. Ils sont déclenchés séquentiellement par la boucle de simulation. Ils sont tous datés. Ils planifient d'autres événements, modifient les entités et les variables et renvoient les informations qui serviront à l'analyse des résultats. On peut ainsi voir le séquencement de certains événements ci-après.
+\begin{itemize}
+\item L’événement de contact de la tour crée l'avion et le met en attente si la piste et le taxiway 1 ne sont pas disponibles.
+\item L’événement d'approche rend indisponible la piste et le taxiway 1. Il dure 2 à 5 minutes et cette durée est doublée en cas de mauvais temps.
+\item L’événement d'atterrissage dure 2 minutes. Dès qu'il est fini, l’événement de libération de la piste rend celle-ci disponible.
+\item L’événement de roulage entrant occupe le taxiway 1 et dure 2 à 6 minutes. Dès qu'il est terminé, le taxiway 1 est libéré par l’événement correspondant si une porte est libre. 
+\item Les événements de déchargement, de ravitaillement et d'embarquement durent respectivement 10, 30 et 20 minutes.
+\item À l'issue de ceux-ci, si le taxiway 2 est libre, l’événement de roulage sortant est déclenché et l'avion libère la porte pour occuper le taxiway 2. Le roulage dure là encore 2 à 6 minutes.
+\item Si la piste est libre, l’événement de décollage est déclenché. Il dure 3 minutes, à l'issu desquelles la piste devient à nouveau libre.
 
-L'évènement de changement de météo existe en parallèle des autres, il agit sur la variable de météo pour la passer de bonne à mauvaise et inversement.
+\item L’événement de changement de météo existe en parallèle des autres, il agit sur la variable de météo pour la passer de bonne à mauvaise et inversement.
+\end{itemize}
