@@ -17,4 +17,5 @@ logger.txt
 *.gl* 
 *.bcf
 *.glo
-
+*.lof
+*.lot
