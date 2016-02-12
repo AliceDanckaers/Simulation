@@ -21,6 +21,7 @@ public class EvtApproach extends Events {
 		this.start = startDate;
 		this.plane = plane;
 		this.ID = 2;
+		plane.delay=startDate.soustract(plane.arrived);
 	}
 
 	@Override

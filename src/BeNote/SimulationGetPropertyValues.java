@@ -29,10 +29,10 @@ public class SimulationGetPropertyValues {
  
 			aero.startDate = new LogicalDateTime( prop.getProperty("startDate"));
 			aero.stopDate = aero.startDate.add(LogicalDuration.ofDay( Integer.parseInt(prop.getProperty("duration"))));
-			aero.log = "Simulation "+ prop.getProperty("name")+ " de l'aeroport de Brest\n"+" Date de debut ;Jour de la semaine; Numero de l'avion; Identifiant de l'evenement; Description de l'evenement; Date de fin;Duree (min); (seconds)\n";
+			aero.log = "Simulation "+ prop.getProperty("name")+ " de l'aeroport de Brest\n"+" Date de debut ;Jour de la semaine; Numero de l'avion; Identifiant de l'evenement; Description de l'evenement; Date de fin;Duree (min); (seconds); Retard (min)\n";
 			aero.meteo = prop.getProperty("meteo");
 			aero.nb_gate = Integer.parseInt(prop.getProperty("nb_gate"));
-			
+			aero.nb_taxiway = Integer.parseInt(prop.getProperty("nb_taxiway"));
  
 		} catch (Exception e) {
 			System.out.println("Exception: " + e);

@@ -49,7 +49,7 @@ public class EvtRollIn extends Events{
 					check =false;
 					aero.facilities.gates[gateID].status = "occupe";
 					plane.gate = gateID;
-					agenda.add(new EvtRelease_P_TW1(this.end));
+					agenda.add(new EvtRelease_P_TW1(this.end,this.plane.taxiway));
 					agenda.add(new EvtUnload(this.end,plane));
 				}
 				else

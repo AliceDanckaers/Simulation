@@ -1,10 +1,7 @@
 package BeNote;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Iterator;
-
 import Events.Events;
 import Events.EventsInitializer;
 import enstabretagne.base.time.LogicalDateTime;
@@ -29,6 +26,7 @@ public class Aeroport {
 	public Facilities facilities = new Facilities();
 	public Entities planes;
 	public int nb_gate;
+	public int nb_taxiway;
 	public SortedList<Entities> waitingListLanding = new SortedList<Entities>();
 	public SortedList<Entities> waitingListGate = new SortedList<Entities>();
 	public SortedList<Entities> waitingListTW2 = new SortedList<Entities>();
@@ -44,11 +42,14 @@ public class Aeroport {
 		
 	// loading airport parameters
 	facilities.runway = new Entities("piste", "piste", "libre");
-	facilities.taxiway1 = new Entities("taxiway 1", "taxiway", "libre");
+	facilities.taxiway1 = new Entities[nb_taxiway];
 	facilities.taxiway2 = new Entities("taxiway 2", "taxiway", "libre");
 	facilities.gates = new Entities[nb_gate];
 	for (int k = 0; k < nb_gate; k++) {
 		facilities.gates[k] = new Entities("dock " + k, "dock", "libre");
+	}
+	for (int k = 0; k < nb_taxiway; k++) {
+		facilities.taxiway1[k] = new Entities("taxiway " +k, "taxiway In", "libre");
 	}
 	planes = new Entities("avions", "avions");
 	
@@ -75,20 +76,32 @@ public class Aeroport {
 			numPlane = "00";
 		}
 		// handling event
-		String logmsg = currDate + ";" + currDate.getDayOfWeek()+";"+ numPlane + ";" + currEvt.ID +";"+ currEvt.doSomething(agenda, this) +";"+currEvt.end+";"+currEvt.end.soustract(currDate).getMinutes()+" ; "+currEvt.end.soustract(currDate).getRestSeconds()+ "\n";
+		LogicalDuration delay;
+		String logmsg;
+		if(currEvt.ID!=2){
+			logmsg = currDate + ";" + currDate.getDayOfWeek()+";"+ numPlane + ";" + currEvt.ID +";"+ currEvt.doSomething(agenda, this) +";"+currEvt.end+";"+currEvt.end.soustract(currDate).getMinutes()+" ; "+currEvt.end.soustract(currDate).getRestSeconds()+ "\n";
+			
+		}else{
+			delay = currEvt.plane.delay;
+			logmsg = currDate + ";" + currDate.getDayOfWeek()+";"+ numPlane + ";" + currEvt.ID +";"+ currEvt.doSomething(agenda, this) +";"+currEvt.end+";"+currEvt.end.soustract(currDate).getMinutes()+" ; "+currEvt.end.soustract(currDate).getRestSeconds()+ ";"+ delay.getMinutes() +"\n";
+			
+		}
 
 		return logmsg;
 	}
 
-	public void printStatus(int i) {
+	public void printStatus() {
 		// for debugging
 		System.out.println("---------------------------> status piste : " + this.facilities.runway.status);
-		System.out.println("---------------------------> status tw 1 : " + this.facilities.taxiway1.status);
-		for (int k = 0; k < i; k++) {
+		for (int k = 0; k < this.nb_gate; k++) {
 			System.out.println(
 					"---------------------------> status gate " + (k + 1) + " : " + this.facilities.gates[k].status);
 		}
-		System.out.println("---------------------------> status tw 2 : " + this.facilities.taxiway2.status);
+		for (int k = 0; k < this.nb_taxiway; k++) {
+			System.out.println(
+					"---------------------------> status taxiway in " + (k + 1) + " : " + this.facilities.taxiway1[k].status);
+		}
+		System.out.println("---------------------------> status tw out : " + this.facilities.taxiway2.status);
 		System.out.println("---------------------------> meteo : " + this.meteo);
 
 	}

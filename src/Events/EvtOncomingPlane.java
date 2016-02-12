@@ -24,21 +24,39 @@ public class EvtOncomingPlane extends Events  {
 		this.plane.arrived = startDate;
 		this.end = this.start;
 		this.ID = 1;
+	
 	}
 
 	@Override
 	public String doSomething(SortedList<Events> agenda, Aeroport aero) {
 		String log = "L'avion "+plane.ID+" contacte la tour";
 		aero.planes.planes.add(plane);
-		if(aero.facilities.runway.status == "libre" && aero.facilities.taxiway1.status == "libre")
+		
+		int twID=0;
+		boolean check = true;
+		while(check)
 		{
-			aero.facilities.runway.setStatus("occupe");
-			aero.facilities.taxiway1.setStatus("occupe");
-			agenda.add(new EvtApproach(start,plane));
-		}
-		else
-		{
-			aero.waitingListLanding.add(plane);
+			if(twID>(aero.nb_taxiway-1))
+			{
+				// no free taxiway - wait
+				check=false;
+				aero.waitingListLanding.add(plane);
+			}else
+			{
+				if(aero.facilities.runway.status == "libre" && aero.facilities.taxiway1[twID].status == "libre")
+				{
+					// free taxiway found - beginning landing
+					check =false;
+					this.plane.taxiway=twID;
+					aero.facilities.runway.setStatus("occupe");
+					aero.facilities.taxiway1[twID].setStatus("occupe");
+					agenda.add(new EvtApproach(start,plane));
+				}
+				else
+				{
+					twID++;
+				}
+			}
 		}
 		return log;
 	}

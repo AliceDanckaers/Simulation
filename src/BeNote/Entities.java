@@ -2,6 +2,7 @@ package BeNote;
 
 
 import enstabretagne.base.time.LogicalDateTime;
+import enstabretagne.base.time.LogicalDuration;
 import enstabretagne.simulation.core.SortedList;
 
 public class Entities implements Comparable<Entities>{
@@ -12,7 +13,9 @@ public class Entities implements Comparable<Entities>{
 	public SortedList<Entities> planes;
 	public int gate;
 	public int ID;
+	public int taxiway;
 	public LogicalDateTime arrived;
+	public LogicalDuration delay;
 	
 	public Entities(String name, String type, String status) { // constructor for airport facilities
 		this.name = name;

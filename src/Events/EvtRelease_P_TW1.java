@@ -6,6 +6,7 @@ import enstabretagne.base.time.LogicalDuration;
 import enstabretagne.simulation.core.SortedList;
 
 public class EvtRelease_P_TW1 extends Events {
+	int twID;
 
 	public EvtRelease_P_TW1() {
 		this.name =  "Runway and Taxiway 1 free";
@@ -14,11 +15,12 @@ public class EvtRelease_P_TW1 extends Events {
 		this.ID = 10;
 	}
 	
-	public EvtRelease_P_TW1(LogicalDateTime startDate) {
+	public EvtRelease_P_TW1(LogicalDateTime startDate, int twID) {
 		this.name = "Runway and Taxiway 1 free";
 		this.start = startDate;
 		this.end = this.start;
 		this.ID = 10;
+		this.twID = twID;
 	}
 
 	@Override
@@ -27,7 +29,7 @@ public class EvtRelease_P_TW1 extends Events {
 		if(aero.waitingListLanding.size()==0)
 		{
 			aero.facilities.runway.status = "libre";
-			aero.facilities.taxiway1.status = "libre";
+			aero.facilities.taxiway1[twID].status = "libre";
 		}else
 		{
 			this.plane = aero.waitingListLanding.first();

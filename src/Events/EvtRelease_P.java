@@ -25,9 +25,31 @@ public class EvtRelease_P extends Events{
 	@Override
 	public String doSomething(SortedList<Events> agenda, Aeroport aero) {
 		String log = "liberation de la piste";
-		if(aero.facilities.taxiway1.status == "libre" && aero.waitingListLanding.size()!=0) // priority on landing
+		int twID=0;
+		boolean check = true;
+		while(check)
 		{
-			agenda.add(new EvtRelease_P_TW1(start));
+			if(twID>(aero.nb_taxiway-1))
+			{
+				// no free taxiway - wait
+				check=false;
+				twID=0;
+			}else
+			{
+				if(aero.facilities.runway.status == "libre" && aero.facilities.taxiway1[twID].status == "libre")
+				{
+					// free taxiway found
+					check =false;
+				}
+				else
+				{
+					twID++;
+				}
+			}
+		}
+		if(aero.facilities.taxiway1[twID].status == "libre" && aero.waitingListLanding.size()!=0) // priority on landing
+		{
+			agenda.add(new EvtRelease_P_TW1(start, twID));
 		}
 		else if(aero.waitingListTakeOff.size()==0)
 		{

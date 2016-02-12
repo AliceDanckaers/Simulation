@@ -37,7 +37,7 @@ public class EvtReleaseGate extends Events{
 			this.plane = aero.waitingListGate.first();
 			aero.waitingListGate.remove(aero.waitingListGate.first());
 
-			agenda.add(new EvtRelease_P_TW1(this.end));
+			agenda.add(new EvtRelease_P_TW1(this.end,plane.taxiway));
 			agenda.add(new EvtUnload(this.end,plane));
 
 		}
